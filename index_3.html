@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Tensorflow.js</title>
+	<link rel="stylesheet" href="src/styles.css">
+</head>
+
+<body>
+	<h1>Define, train and run a machine learning model in JavaScript with Tensorflow.js</h1>
+
+	<section class="data-inputs">
+		<h3>Iris classification</h3>
+		<p>Training in progress...</p>
+		<p class="training-steps"></p>
+		<div class="input-block">
+			<label for="sepal-length">Sepal lenth:</label>
+			<input name="sepal-length" type="number" min="0" max="100" placeholder="1.5">
+		</div>
+
+		<div class="input-block">
+			<label for="sepal-width">Sepal width:</label>
+			<input name="sepal-width" type="number" min="0" max="100" placeholder="0.4">
+		</div>
+
+		<div class="input-block">
+			<label for="petal-length">Petal length:</label>
+			<input name="petal-length" type="number" min="0" max="100" placeholder="1.0">
+		</div>
+
+		<div class="input-block">
+			<label for="petal-width">Petal width:</label>
+			<input name="petal-width" type="number" min="0" max="100" placeholder="0.7">
+		</div>
+
+		<button class="predict" disabled>Predict</button>
+	</section>
+
+	<section class="prediction-block">
+		<p>Iris predicted:</p>
+		<p class="prediction"></p>
+	</section>
+
+	<script src="index_3/index.js"></script>
+</body>
+
+</html>

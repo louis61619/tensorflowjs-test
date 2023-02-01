@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.0.1"></script>
+    <!-- Load the MobileNet model. -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/mobilenet@1.0.0"></script>
+
+    <!-- Replace this with your image. Make sure CORS settings allow reading the image! -->
+    <input
+      type="file"
+      id="file-uploader"
+      accept="image/png, image/jpeg, image/jpg"
+      multiple="multiple"
+    />
+    <div>
+      <img style="margin-top: 10px" id="img" />
+    </div>
+
+    <div id="result"></div>
+
+    <!-- Place your code in the script tag below. You can also use an external .js file -->
+    <script>
+      const img = document.getElementById("img");
+      const result = document.getElementById("result");
+      // Notice there is no 'import' statement. 'mobilenet' and 'tf' is
+      // available on the index-page because of the script tag above.
+      window.addEventListener("load", function () {
+        // const model = await mobilenet.load()
+        document
+          .querySelector('input[type="file"]')
+          .addEventListener("change", async function () {
+            if (this.files && this.files[0]) {
+              img.onload = () => {
+                URL.revokeObjectURL(img.src); // no longer needed, free memory
+              };
+
+              img.src = URL.createObjectURL(this.files[0]); // set src to blob url
+              // Load the model.
+              result.innerText = "loading";
+              mobilenet.load().then((model) => {
+                // Classify the image.
+                model.classify(img).then((predictions) => {
+                  console.log("Predictions: ");
+                  console.log(predictions);
+                  if (Array.isArray(predictions)) {
+                    result.innerHTML = null;
+                    predictions.forEach((prediction) => {
+                      const p = document.createElement("p");
+                      p.innerText = `${prediction.className}，probability：${prediction.probability}`;
+                      result.appendChild(p);
+                    });
+                  }
+                });
+              });
+            }
+          });
+      });
+    </script>
+  </body>
+</html>
